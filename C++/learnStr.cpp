@@ -1,20 +1,46 @@
-#include<iostream>
+//{ Driver Code Starts
+#include <iostream>
 using namespace std;
-int main(){
-    
-    /*
-    string name;
-    cout << "Enter you name: ";
-    cin >> name ; 
 
-    cout << "Your name is " << name ;
-    */
 
-    const int size = 100; 
-    char line[size];
-    cout << endl << "OK now Enter a line : " ; 
-    cin.getline(line,size);
+// } Driver Code Ends
 
-    cout << "Here is what you just wrote : " << endl 
-    << line ;
+class Solution {
+  public:
+    string roundToNearest(string str) {
+        int n = str.size();
+        if (str[n-1]==0) return str; 
+        else if (str[n-1]<5 && str[n-1]>0){
+            str[n-1]=0; 
+            int it = n-2; 
+            while (str[it]==0 && it>=0)
+                str[it--]=9;
+            str[it]--;
+        }
+        else {
+            str[n-1]=0; 
+            int it = n-2; 
+            while (str[it]==9 && it>=0)
+                str[it--]=0;
+            str[it]++;
+        }
+        return str; 
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+
+    int t;
+    cin >> t;
+    while (t--) {
+        string str;
+        cin >> str;
+        Solution ob;
+        cout << ob.roundToNearest(str) << endl;
+    }
+
+    return 0;
 }
+// } Driver Code Ends
