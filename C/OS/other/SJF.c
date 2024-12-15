@@ -10,7 +10,7 @@ void sjfScheduling(int n, int bt[]) {
                 int temp = bt[i];
                 bt[i] = bt[j];
                 bt[j] = temp;
-            }
+            } 
         }
     }
 
