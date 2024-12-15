@@ -31,3 +31,5 @@ int main() {
     int mid=(low+high)/2;
     recursiveBinary(arr,n,key,low,high,mid);
 }
+
+
