@@ -102,6 +102,7 @@ struct Node *search(struct Node *start, int key) {
         }
         return start;
 }
+
 void display(struct Node *start) {
         struct Node *ptr = start;
         while (ptr != NULL) {
@@ -110,6 +111,19 @@ void display(struct Node *start) {
         }
         printf("\n");
 }
+
+struct Node *reverseLinkedList(struct Node *start) {
+        struct Node *prev = NULL, *current = start, *next = NULL;
+        while (current != NULL) {
+                next = current->next; 
+                current->next = prev; 
+                prev = current;      
+                current = next;      
+        }
+        start = prev;
+        return start;
+}
+
 int main() {
         struct Node *start = NULL;
         int choice, data, pos, n;
@@ -117,7 +131,7 @@ int main() {
         scanf("%d", &n);
         start = createLinkedList(n);
         while (1) {
-                printf("1. Insert at start\n2. Insert at position\n3. Delete at position\n4. Search\n5. Display\n6. Exit\n");
+                printf("1. Insert at start\n2. Insert at position\n3. Delete at position\n4. Search\n5. Display\n6. Reverse\n7. Exit\n");
                 printf("Enter your choice: ");
                 scanf("%d", &choice);
                 switch (choice) {
@@ -148,7 +162,11 @@ int main() {
                 case 5:
                         display(start);
                         break;
-                case 6:
+                case 6: 
+                        printf("The Linked list is now Reversed\n"); 
+                        start = reverseLinkedList(start); 
+                        break;
+                case 7:
                         exit(0);
                 default:
                         printf("Invalid choice\n");
