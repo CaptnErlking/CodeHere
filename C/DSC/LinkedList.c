@@ -25,7 +25,7 @@ struct Node *createLinkedList(int n) {
         }
         return start;
         }
-        struct Node *insertAtStart(struct Node *start, int data) {
+struct Node *insertAtStart(struct Node *start, int data) {
         struct Node *newnode = (struct Node *)malloc(sizeof(struct Node));
         newnode->data = data;
         newnode->next = start;
