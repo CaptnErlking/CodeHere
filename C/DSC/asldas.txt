@@ -1,0 +1,56 @@
+vector<string> winner(string arr[],int n)
+    {
+        vector<string> res;
+        unordered_map<string,int> m;
+        
+        for(int i=0;i<n;i++)  m[arr[i]]++;
+        int Max=0;
+        //int Smax=0;
+        bool f=false;
+        string Name;
+        string Sname="";
+        for(auto it=m.begin();it!=m.end();it++)
+        {
+            
+            Max=max(it->second,Max);
+            if(it->second==Max)
+            {
+                Name=it->first;
+            }
+        }
+        
+        for(auto it=m.begin();it!=m.end();it++)
+        {
+            
+            if(it->second==Max && it->first<Name)
+            {
+                Sname=it->first;
+            }
+            
+        }
+        
+        if(Sname.empty())
+        {
+            res.push_back(Name);
+            //string x=Max;
+            res.push_back(to_string (Max));
+        }
+        else
+        {
+            if(Name<Sname)
+            {
+                res.push_back(Name);
+            res.push_back(to_string (Max));
+            // res.push_back(Sname);
+            // res.push_back(to_string (Max));
+            }
+            else
+            {
+            res.push_back(Sname);
+            res.push_back(to_string (Max));
+            // res.push_back(Name);
+            // res.push_back(to_string (Max));
+            }
+        }
+        return res;
+    }
