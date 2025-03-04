@@ -1,44 +1,14 @@
-#include<iostream>
-#include<vector>
-using namespace std ;
+#include<bits/stdc++.h>
+using namespace std; 
 
-bool wasArray(vector<int> &v, int n) {
-    bool pprev, prev, curr; 
-    bool pprevE; 
-    if (v[0] == 0 && v[1] == 1) {
-        pprev = 1; 
-        prev = 0; 
-        curr = 0; 
-    }
-    else if (v[0] == 0 && v[1] == 0){
-        pprev = 0;
-        prev = 0; 
-        curr = 0; 
-    }
-    else {
-        pprev = prev = curr = 0; 
-    }
-    for (int i = 1; i < n; i++) { 
-        if (i > 1) pprevE = v[i-2]; 
-        if (v[i] == 0) {
-            if (prev == curr) {
-                pprev = prev; 
-                curr = !curr;     
-            }
-            else {
-                pprev = prev; 
-                prev = curr; 
-            }
-        }
-        else {
-            if (prev != curr) {
-                if (pprevE == 1) {
-                    return false; 
-                }
-                else if (pprev == 0 && pprev == 1) {
-                    return false; 
-                }
-            } 
+bool wasArray(vector<int> x, int n) {
+    n = n - 2; 
+    if (n < 3) return true; 
+    for (int i = 0; i < n - 2; i++) {
+        int j = i + 1; 
+        int k = j + 1 ;
+        if (x[i] == 1 && x[j] == 0 && x[k] == 1) {
+            return false;
         }
     }
     return true; 
@@ -49,13 +19,13 @@ int main() {
     cin >> t; 
     while (t--) {
         cin >> n; 
-        vector<int> v(n); 
-        for (int i = 0; i < n - 2; i++) {
-            cin >> v[i]; 
-        }
-        if (wasArray(v, n)) {
+        vector<int> x(n-2); 
+        for (int i = 0; i < n - 2; i++) cin >> x[i]; 
+        if (wasArray(x, n))  {
             cout << "YES" << endl; 
+        }   
+        else {
+            cout << "NO" << endl; 
         }
-        else cout << "NO" << endl; 
     }
 }
