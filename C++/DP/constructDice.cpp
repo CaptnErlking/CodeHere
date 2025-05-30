@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std; 
+const int MOD = 1e9 + 7;
 
 // state : dp[i] meaning the number of ways to make n using 1 - 6
 // transition : d[i] = dp[i - 1] + dp[i - 2] ....... dp[i - 6] 
@@ -11,7 +12,7 @@ int ways(int n, vector<int> &dp) {
     if (n == 0) return 1; 
     if (dp[n] != -1) return dp[n]; 
     dp[n] = 0; 
-    for (int i = 1; i <= 6; i++) dp[n] += ways(n - i, dp);
+    for (int i = 1; i <= 6; i++) dp[n] = (dp[n] + ways(n - i, dp)) % MOD; 
     return dp[n]; 
 }
 
