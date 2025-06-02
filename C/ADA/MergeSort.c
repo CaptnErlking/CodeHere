@@ -64,23 +64,25 @@ int main() {
     for (long long int i = 0; i < n; i++) {
         arr[i] = rand();
     }
-
+    /*
     printf("Original Array:\n");
     for (long long int i = 0; i < n; i++) {
         printf("%lld ", arr[i]);
     }
     printf("\n");
-
+    */
     start = clock();
     mergeSort(arr, 0, n - 1);
     end = clock();
 
     time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
 
+    /*
     printf("Sorted Array:\n");
     for (long long int i = 0; i < n; i++) {
         printf("%lld ", arr[i]);
     }
+        */
     printf("\n");
 
     printf("Time taken for the sorting is: %lf seconds\n", time_taken);
