@@ -41,18 +41,17 @@ int solve(int i, int j, int d, vector<string> &m, vector<vector<vector<int>>> &d
     return dp[i][j][d]; 
 } 
 */
- 
+/*
 int main() { 
     int n;  
     cin >> n;  
     vector<string> m(n); 
     for (int i = 0; i < n; i++) cin >> m[i]; 
-/*
-vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(n + 1, vector<int>(2, -1))); 
-dp[n][n][0] = dp[n][n][1] = INT_MAX; 
-for (int i = 0; i < n; i++) dp[i][n][0] = dp[i][n][1] = INT_MAX;
-for (int i = 0; i < n; i++) dp[n][i][0] = dp[n][i][1] = INT_MAX;
-for (int i = 0; i < n; i++) {
+    vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(n + 1, vector<int>(2, -1))); 
+    dp[n][n][0] = dp[n][n][1] = INT_MAX; 
+    for (int i = 0; i < n; i++) dp[i][n][0] = dp[i][n][1] = INT_MAX;
+    for (int i = 0; i < n; i++) dp[n][i][0] = dp[n][i][1] = INT_MAX;
+    for (int i = 0; i < n; i++) {
         dp[n - 1][i][1] = i != n - 1 ? m[n - 1][i + 1] : INT_MAX; 
         dp[n - 1][i][0] = INT_MAX; 
     }
@@ -81,24 +80,55 @@ for (int i = 0; i < n; i++) {
         else j++; 
     } 
     cout << ans << endl; 
-*/
-    vector<vector<bool>> vis(n, vector<bool>(n, false));
-    set<pair<string, pair<int, int>>> q;
-    q.insert({string(1, m[0][0]), {0, 0}});
-
-    while (!q.empty()) {
-        auto it = *q.begin();
-        pair<int, int> p = it.second; 
-        string s = it.first; 
-        q.erase(q.begin());
-        int i = p.first, j = p.second;
-        if (vis[i][j]) continue;
-        vis[i][j] = true;
-        if (i == n - 1 && j == n - 1) {
-            cout << s << endl;
-            return 0;
-        }
-        if (i + 1 < n && !vis[i + 1][j]) q.insert({s + m[i + 1][j], {i + 1, j}});
-        if (j + 1 < n && !vis[i][j + 1]) q.insert({s + m[i][j + 1], {i, j + 1}});
-    }
 }
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int n;
+    if(!(cin>>n)) return 0;
+    vector<string> m(n);
+    for(int i=0;i<n;i++) cin>>m[i];
+    string ans;
+    ans.push_back(m[0][0]);
+    if(n==1){ cout<<ans<<"\n"; return 0; }
+    vector<int> cur;
+    cur.push_back(0);
+    vector<int> seen(n*n,0);
+    int stamp = 1;
+    for(int step=1; step<=2*n-2; ++step){
+        char best = '{';
+        vector<int> cand;
+        for(int idx: cur){
+            int i = idx / n, j = idx % n;
+            if(i+1 < n){
+                int ni = (i+1)*n + j;
+                if(seen[ni] != stamp){
+                    seen[ni] = stamp;
+                    cand.push_back(ni);
+                    if(m[i+1][j] < best) best = m[i+1][j];
+                }
+            }
+            if(j+1 < n){
+                int ni = i*n + (j+1);
+                if(seen[ni] != stamp){
+                    seen[ni] = stamp;
+                    cand.push_back(ni);
+                    if(m[i][j+1] < best) best = m[i][j+1];
+                }
+            }
+        }
+        ++stamp;
+        vector<int> nxt;
+        for(int idx : cand) if(m[idx/n][idx%n] == best) nxt.push_back(idx);
+        ans.push_back(best);
+        cur.swap(nxt);
+    }
+    cout<<ans<<"\n";
+    return 0;
+}
+
+
